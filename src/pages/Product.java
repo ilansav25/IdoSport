@@ -43,7 +43,7 @@ public class Product extends Base {
 	public boolean addToCart() throws InterruptedException {
 		click(By.cssSelector(".single_add_to_cart_button.button"));
 		Thread.sleep(3000);
-		String itemCount = driver.findElement(By.xpath("((//a[@id=\"elementor-menu-cart__toggle_button\"])[1]//span)[2]")).getAttribute("data-counter=\"1\"");
+		String itemCount = driver.findElement(By.xpath("((//a[@id=\"elementor-menu-cart__toggle_button\"])[1]/span)[2]")).getAttribute("data-counter");
 		if(itemCount.equals("1"))
 		return true;
 		else
