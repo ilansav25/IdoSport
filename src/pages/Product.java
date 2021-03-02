@@ -12,6 +12,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 
 public class Product extends Base {
 
@@ -21,38 +22,31 @@ public class Product extends Base {
 		super(driver);
 	}
 
-	public void selectDate() throws InterruptedException {
+	public boolean addToCartStatus() {
 
-		click(By.id("shipping_delivery_date"));
-		Thread.sleep(2000);
-		List<WebElement> days = driver.findElements(By.xpath("//table[@id='grid-shipping_delivery_date']//td"));
-
-		Date date = new Date();
-		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		int day   = localDate.getDayOfMonth();
-		day = day + 3;
-
-		for (WebElement e : days) {
-			// System.out.println(e.getText());
-			if (e.getText().equals(String.valueOf(day))) {
-				e.click();
-				break;
-				// }
-
-			}
-		}
-	}
-	
-	public boolean goToCart() {
-		click(By.cssSelector(".single_add_to_cart_button"));
-		click(By.partialLinkText("רוצה להמשיך לסל הקניות"));
-		String text = getText(By.xpath("//*[@id=\"post-8\"]/header/h1"));
-		
-		if (text.equals("סל קניות"))
+		if (isExist(By.cssSelector("Button.single_add_to_cart_button.button.alt.disabled")))
 			return true;
 		else
 			return false;
-		
 	}
 
+	public boolean editProduct() {
+		if (addToCartStatus()) {
+			Select select = new Select(driver.findElement(By.xpath("//table//select")));
+			select.selectByIndex(2);
+
+			return true;
+		} else
+			return false;
+	}
+
+	public boolean addToCart() throws InterruptedException {
+		click(By.cssSelector(".single_add_to_cart_button.button"));
+		Thread.sleep(3000);
+		String itemCount = driver.findElement(By.xpath("((//a[@id=\"elementor-menu-cart__toggle_button\"])[1]//span)[2]")).getAttribute("data-counter=\"1\"");
+		if(itemCount.equals("1"))
+		return true;
+		else
+			return false;
+	}
 }

@@ -86,15 +86,26 @@ public class SanityBuyProduct {
 		Assert.assertTrue(main.getIntoProduct("משקולות יד דאמבלס משושה עם אחיזה נוחה לידיים"));
 	}
 	
+	
+	/*  Prerequisite: Do edit on product
+	 * 		Given: Client is in product page
+	 * 		When: click on size of product
+	 *  	Then: Getting product into cart
+	 */
 	@Test(priority = 3, enabled = true, description = "verify date")
 	public void EditProduct() throws InterruptedException, IOException {	
-	//	Assert.assertTrue(main.getIntoProduct("משקולות יד דאמבלס משושה עם אחיזה נוחה לידיים"));
+		Assert.assertTrue(product.editProduct());
 	}
 	
 	
+	/*  Prerequisite: Do add product to cart
+	 * 		Given: Client is in product page 
+	 * 		When: click on add to cart
+	 *  	Then: Getting product into cart
+	 */
 	@Test(priority = 4, enabled = true, description = "verify date")
 	public void AddtoCart() throws InterruptedException, IOException {	
-	//	Assert.assertTrue(main.getIntoProduct("משקולות יד דאמבלס משושה עם אחיזה נוחה לידיים"));
+		Assert.assertTrue(product.addToCart());
 	}
 	
 	@AfterMethod
